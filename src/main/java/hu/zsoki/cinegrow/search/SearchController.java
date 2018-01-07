@@ -2,12 +2,12 @@ package hu.zsoki.cinegrow.search;
 
 import hu.zsoki.cinegrow.search.model.SearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/search")
 public class SearchController {
 
     private SearchService searchService;
@@ -17,15 +17,14 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @PostMapping("byTitle")
+    @PostMapping("search")
     public ResponseEntity<?> search(@RequestBody SearchRequest searchRequest) {
-        try {
-            return ResponseEntity.ok(searchService.search(searchRequest));
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Internal server error");
-        }
+        return ResponseEntity.ok(searchService.search(searchRequest));
+    }
+
+    @PostMapping("find")
+    public ResponseEntity<?> find(@RequestBody SearchRequest searchRequest) {
+        return ResponseEntity.ok(searchService.find(searchRequest));
     }
 
 }

@@ -1,15 +1,22 @@
-package hu.zsoki.cinegrow.omdb.model;
+package hu.zsoki.cinegrow.api.omdb.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class OmdbResponse {
+public class OmdbTitleResponse implements OmdbResponse {
 
+    @Getter(AccessLevel.NONE) // implemented through hasError
     @JsonProperty("Response")
     private String response;
+
+    @Getter(AccessLevel.NONE) // implemented through getErrorMessage
+    @JsonProperty("Error")
+    private String errorMessage;
 
     @JsonProperty("Title")
     private String title;
@@ -50,6 +57,15 @@ public class OmdbResponse {
     @JsonProperty("Awards")
     private String awards;
 
+    @Override
+    public boolean hasError() {
+        return "False".equals(response);
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }
 
 /* Example response

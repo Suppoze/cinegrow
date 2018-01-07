@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class SearchResponse {
 
-    private String response;
+    private String response; // TODO: placeholder.
 
 }
