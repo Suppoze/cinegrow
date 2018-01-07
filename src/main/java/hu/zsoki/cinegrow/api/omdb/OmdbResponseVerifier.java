@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 class OmdbResponseVerifier {
 
-    public <T extends OmdbResponse> void verify(T omdbResponse) throws OmdbClientException {
+    public <T extends OmdbResponse> void verify(T omdbResponse) {
         if (omdbResponse.hasError()) {
             throw new OmdbClientException(omdbResponse.getErrorMessage());
         }

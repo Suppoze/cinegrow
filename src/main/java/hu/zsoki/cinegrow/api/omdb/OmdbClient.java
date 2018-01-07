@@ -17,15 +17,15 @@ public class OmdbClient {
 
     @Value("${omdb.url}")
     private String omdbUrl;
-    private OmdbResponseVerifier verifier;
+
+    private final OmdbResponseVerifier verifier;
 
     @Autowired
     public OmdbClient(OmdbResponseVerifier verifier) {
         this.verifier = verifier;
     }
 
-    public <T extends OmdbRequest, R extends OmdbResponse> R executeOmdbRequest(T omdbRequest, Class<R> responseType)
-            throws OmdbClientException {
+    public <T extends OmdbRequest, R extends OmdbResponse> R executeOmdbRequest(T omdbRequest, Class<R> responseType) {
         UriComponentsBuilder builder = UriComponentsBuilder
                 .fromUriString(omdbUrl)
                 .queryParam("apikey", apiKey);

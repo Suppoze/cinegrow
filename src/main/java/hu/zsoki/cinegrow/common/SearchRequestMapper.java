@@ -16,7 +16,7 @@ public class SearchRequestMapper {
         if (toType == OmdbSearchRequest.class) {
             return new OmdbSearchRequest(from.getTitle());
         }
-        throw new IllegalArgumentException(String.format("Cannot map SearchRequest to type %s", toType.toString()));
+        throw new IllegalArgumentException(String.format("Cannot map SearchRequest to type %s", toType));
     }
 
 }

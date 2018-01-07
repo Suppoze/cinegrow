@@ -27,7 +27,7 @@ public class SearchService {
         this.searchRequestMapper = searchRequestMapper;
     }
 
-    public SearchResponse find(SearchRequest searchRequest) throws OmdbClientException {
+    public SearchResponse find(SearchRequest searchRequest) {
         SearchResponse searchResponse = new SearchResponse();
 
         OmdbTitleRequest omdbTitleRequest = (OmdbTitleRequest) searchRequestMapper.map(searchRequest, OmdbTitleRequest.class);
@@ -37,7 +37,7 @@ public class SearchService {
         return searchResponse;
     }
 
-    public SearchResponse search(SearchRequest searchRequest) throws OmdbClientException {
+    public SearchResponse search(SearchRequest searchRequest) {
         SearchResponse searchResponse = new SearchResponse();
 
         OmdbSearchRequest omdbSearchRequest = (OmdbSearchRequest) searchRequestMapper.map(searchRequest, OmdbSearchRequest.class);
