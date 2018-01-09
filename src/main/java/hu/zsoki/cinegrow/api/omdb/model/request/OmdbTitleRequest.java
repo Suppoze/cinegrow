@@ -10,6 +10,13 @@ import java.util.Optional;
 @Data
 public class OmdbTitleRequest implements OmdbRequest {
 
+    public static final String TITLE_TITLE_FIELD = "t";
+    public static final String TITLE_SEARCH_TYPE_FIELD = "type";
+    public static final String TITLE_YEAR_FIELD = "y";
+    public static final String TITLE_PLOT_LENGTH_FIELD = "p";
+    public static final String TITLE_RESPONSE_DATA_TYPE_FIELD = "r";
+    public static final String TITLE_API_VERSION_FIELD = "v";
+
     @NonNull
     private String title;
     private SearchType searchType;
@@ -20,21 +27,6 @@ public class OmdbTitleRequest implements OmdbRequest {
 
     public OmdbTitleRequest(String title) {
         this.title = title;
-    }
-
-    // FIXME in-out parameter
-    public void appendQueryParams(UriComponentsBuilder uriComponentsBuilder) {
-        uriComponentsBuilder.queryParam("t", title);
-        Optional.ofNullable(searchType)
-                .ifPresent(it -> uriComponentsBuilder.queryParam("type", it.name().toLowerCase()));
-        Optional.ofNullable(year)
-                .ifPresent(it -> uriComponentsBuilder.queryParam("y", it.toString()));
-        Optional.ofNullable(plotLength)
-                .ifPresent(it -> uriComponentsBuilder.queryParam("plot", it.name().toLowerCase()));
-        Optional.ofNullable(responseDataType)
-                .ifPresent(it -> uriComponentsBuilder.queryParam("r", it.name().toLowerCase()));
-        Optional.ofNullable(apiVersion)
-                .ifPresent(it -> uriComponentsBuilder.queryParam("v", it.toString()));
     }
 
 }
