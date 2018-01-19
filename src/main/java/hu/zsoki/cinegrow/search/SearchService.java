@@ -2,6 +2,7 @@ package hu.zsoki.cinegrow.search;
 
 import hu.zsoki.cinegrow.api.omdb.OmdbClient;
 import hu.zsoki.cinegrow.api.omdb.OmdbClientException;
+import hu.zsoki.cinegrow.api.omdb.model.request.OmdbRequest;
 import hu.zsoki.cinegrow.api.omdb.model.request.OmdbSearchRequest;
 import hu.zsoki.cinegrow.api.omdb.model.request.OmdbTitleRequest;
 import hu.zsoki.cinegrow.api.omdb.model.response.OmdbSearchResponse;
@@ -27,7 +28,7 @@ public class SearchService {
         this.searchRequestMapper = searchRequestMapper;
     }
 
-    public SearchResponse find(SearchRequest searchRequest) {
+    public <T extends OmdbRequest> SearchResponse find(SearchRequest searchRequest, Class<T> requestType) {
         SearchResponse searchResponse = new SearchResponse();
 
         OmdbTitleRequest omdbTitleRequest = (OmdbTitleRequest) searchRequestMapper.map(searchRequest, OmdbTitleRequest.class);
