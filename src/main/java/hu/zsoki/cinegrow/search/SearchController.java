@@ -3,9 +3,7 @@ package hu.zsoki.cinegrow.search;
 import hu.zsoki.cinegrow.search.model.SearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SearchController {
@@ -22,9 +20,14 @@ public class SearchController {
         return ResponseEntity.ok(searchService.search(searchRequest));
     }
 
-    @PostMapping("find")
-    public ResponseEntity<?> find(@RequestBody SearchRequest searchRequest) {
-        return ResponseEntity.ok(searchService.find(searchRequest));
+    @GetMapping("title/{title}")
+    public ResponseEntity<?> getByTitle(@PathVariable("title") String title) {
+        return ResponseEntity.ok(searchService.getByTitle(title));
+    }
+
+    @GetMapping("id/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") String id) {
+        return ResponseEntity.ok(searchService.getById(id));
     }
 
 }

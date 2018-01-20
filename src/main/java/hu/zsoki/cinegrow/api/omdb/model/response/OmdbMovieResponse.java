@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class OmdbTitleResponse implements OmdbResponse {
+public class OmdbMovieResponse implements OmdbResponse {
 
     @Getter(AccessLevel.NONE) // implemented through hasError
     @JsonProperty("Response")
