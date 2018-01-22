@@ -6,9 +6,11 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class OmdbTitleResponse implements OmdbResponse {
+public class OmdbMovieResponse implements OmdbResponse {
 
     @Getter(AccessLevel.NONE) // implemented through hasError
     @JsonProperty("Response")
@@ -57,9 +59,33 @@ public class OmdbTitleResponse implements OmdbResponse {
     @JsonProperty("Awards")
     private String awards;
 
+    @JsonProperty("Poster")
+    private String poster;
+
+    @JsonProperty("Ratings")
+    private List<OmdbMovieRatingEntry> ratings;
+
+    @JsonProperty("imdbID")
+    private String imdbID;
+
+    @JsonProperty("Type")
+    private String type;
+
+    @JsonProperty("DVD")
+    private String dvd;
+
+    @JsonProperty("BoxOffice")
+    private String boxOffice;
+
+    @JsonProperty("Production")
+    private String production;
+
+    @JsonProperty("Website")
+    private String website;
+
     @Override
     public boolean hasError() {
-        return "False".equals(response);
+        return !Boolean.getBoolean(response);
     }
 
     @Override

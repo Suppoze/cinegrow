@@ -16,7 +16,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private static final String OMDB_CLIENT_EXCEPTION_TEMPLATE = "Error during OMDb API request: %s (%s)";
 
     @ExceptionHandler(value = OmdbClientException.class)
-    ResponseEntity<?> handleOmdbException(OmdbClientException ex) {
+    ResponseEntity<String> handleOmdbException(OmdbClientException ex) {
         LOGGER.error(ex.getMessage(), ex);
         return ResponseEntity
                 .status(HttpStatus.BAD_GATEWAY)
@@ -24,7 +24,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = Exception.class)
-    ResponseEntity<?> handleGeneralException(Exception ex) {
+    ResponseEntity<String> handleGeneralException(Exception ex) {
         LOGGER.error(ex.getMessage(), ex);
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
