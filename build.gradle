@@ -29,7 +29,7 @@ configurations {
 }
 
 dependencies {
-//	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 //	compile('org.springframework.boot:spring-boot-starter-security')
 //	compile('org.springframework.session:spring-session-core')
 	compile('org.springframework.boot:spring-boot-starter-web')
