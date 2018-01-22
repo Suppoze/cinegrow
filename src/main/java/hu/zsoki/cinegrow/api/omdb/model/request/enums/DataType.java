@@ -1,4 +1,4 @@
-package hu.zsoki.cinegrow.api.omdb.model.request;
+package hu.zsoki.cinegrow.api.omdb.model.request.enums;
 
 public enum DataType {
     JSON("json"),

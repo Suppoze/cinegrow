@@ -1,4 +1,4 @@
-package hu.zsoki.cinegrow.search.model;
+package hu.zsoki.cinegrow.search.model.request;
 
 import lombok.Data;
 

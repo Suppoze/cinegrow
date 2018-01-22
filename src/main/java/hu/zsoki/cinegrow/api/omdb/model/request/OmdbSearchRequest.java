@@ -1,6 +1,8 @@
 package hu.zsoki.cinegrow.api.omdb.model.request;
 
-import hu.zsoki.cinegrow.search.model.SearchRequest;
+import hu.zsoki.cinegrow.api.omdb.model.request.enums.DataType;
+import hu.zsoki.cinegrow.api.omdb.model.request.enums.SearchType;
+import hu.zsoki.cinegrow.search.model.request.SearchRequest;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.web.util.UriComponentsBuilder;
