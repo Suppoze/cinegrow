@@ -12,7 +12,7 @@ import java.util.Optional;
 @Data
 public class OmdbTitleOrIdRequest implements OmdbRequest {
 
-    public static final OmdbTitleOrIdRequestBuilder builder = new OmdbTitleOrIdRequestBuilder();
+    public static final Builder builder = new Builder();
 
     private static final String TITLE_FIELD = "t";
     private static final String ID_FIELD = "i";
@@ -30,7 +30,7 @@ public class OmdbTitleOrIdRequest implements OmdbRequest {
     private DataType responseDataType = DataType.JSON;
     private Integer apiVersion = 1;
 
-    OmdbTitleOrIdRequest() {
+    private OmdbTitleOrIdRequest() {
     }
 
     @Override
@@ -44,5 +44,23 @@ public class OmdbTitleOrIdRequest implements OmdbRequest {
         Optional.ofNullable(responseDataType).ifPresent(it -> builderCopy.queryParam(RESPONSE_DATA_TYPE_FIELD, it.getArgString()));
         Optional.ofNullable(apiVersion).ifPresent(it -> builderCopy.queryParam(API_VERSION_FIELD, it.toString()));
         return builderCopy.toUriString();
+    }
+
+    public static class Builder {
+
+        public OmdbTitleOrIdRequest buildWithTitle(String title) {
+            OmdbTitleOrIdRequest newInstance = new OmdbTitleOrIdRequest();
+            newInstance.setTitle(title);
+            newInstance.setId(null);
+            return newInstance;
+        }
+
+        public OmdbTitleOrIdRequest buildWithId(String id) {
+            OmdbTitleOrIdRequest newInstance = new OmdbTitleOrIdRequest();
+            newInstance.setId(id);
+            newInstance.setTitle(null);
+            return newInstance;
+        }
+
     }
 }

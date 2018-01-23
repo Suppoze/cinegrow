@@ -1,16 +1,26 @@
 package hu.zsoki.cinegrow.data.mongo.document;
 
+import hu.zsoki.cinegrow.api.omdb.model.response.OmdbMovieRatingEntry;
 import hu.zsoki.cinegrow.api.omdb.model.response.OmdbMovieResponse;
+import java.util.List;
+import java.util.Objects;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/*-Minta adat DB-ben, lekerdezessel egyutt
+* -OMDB-s endpointon keresni, dbvel és db nélkül (opcionális paraméterként dryrun, vagy külön
+* controller.
+* -OMDB-se endpointon keresés, DB-be menteni, és visszakérni lekérdezéssel
+* -Keresés csak a lokális DB-ben, ne legyen OMDB hívás találat esetén*/
+
 // TODO: add more fields.
-@Document(collection = "movie")
+@Document(collection = "movies")
 public class Movie {
 
     @Id
-    private long id;
+    private ObjectId id;
 
     @Indexed
     private String title;
@@ -19,22 +29,55 @@ public class Movie {
     private String imdbID;
 
     private String year;
-    private String type;
+    private String rated;
+    private String released;
+    private String runtime;
+    private String genre;
+    private String director;
+    private String writer;
+    private String actors;
+    private String plot;
+    private String language;
+    private String country;
+    private String awards;
     private String poster;
+    private List<OmdbMovieRatingEntry> ratings;
+    private String type;
+    private String dvd;
+    private String boxOffice;
+    private String production;
+    private String website;
 
+    // TODO: validation
     public Movie(OmdbMovieResponse movieResponse) {
-        title = movieResponse.getTitle();
-        imdbID = movieResponse.getImdbID();
-        year = movieResponse.getYear();
-        type = movieResponse.getType();
-        poster = movieResponse.getPoster();
+        this.title = movieResponse.getTitle();
+        this.imdbID = movieResponse.getImdbID();
+        this.year = movieResponse.getYear();
+        this.type = movieResponse.getType();
+        this.poster = movieResponse.getPoster();
+        this.rated = movieResponse.getRated();
+        this.released = movieResponse.getReleased();
+        this.runtime = movieResponse.getRuntime();
+        this.genre = movieResponse.getGenre();
+        this.director = movieResponse.getDirector();
+        this.writer = movieResponse.getWriter();
+        this.actors = movieResponse.getActors();
+        this.plot = movieResponse.getPlot();
+        this.language = movieResponse.getLanguage();
+        this.country = movieResponse.getCountry();
+        this.awards = movieResponse.getAwards();
+        this.ratings = movieResponse.getRatings();
+        this.dvd = movieResponse.getDvd();
+        this.boxOffice = movieResponse.getBoxOffice();
+        this.production = movieResponse.getProduction();
+        this.website = movieResponse.getWebsite();
     }
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -62,12 +105,92 @@ public class Movie {
         this.year = year;
     }
 
-    public String getType() {
-        return type;
+    public String getRated() {
+        return rated;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRated(String rated) {
+        this.rated = rated;
+    }
+
+    public String getReleased() {
+        return released;
+    }
+
+    public void setReleased(String released) {
+        this.released = released;
+    }
+
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public void setActors(String actors) {
+        this.actors = actors;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getAwards() {
+        return awards;
+    }
+
+    public void setAwards(String awards) {
+        this.awards = awards;
     }
 
     public String getPoster() {
@@ -76,5 +199,95 @@ public class Movie {
 
     public void setPoster(String poster) {
         this.poster = poster;
+    }
+
+    public List<OmdbMovieRatingEntry> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<OmdbMovieRatingEntry> ratings) {
+        this.ratings = ratings;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDvd() {
+        return dvd;
+    }
+
+    public void setDvd(String dvd) {
+        this.dvd = dvd;
+    }
+
+    public String getBoxOffice() {
+        return boxOffice;
+    }
+
+    public void setBoxOffice(String boxOffice) {
+        this.boxOffice = boxOffice;
+    }
+
+    public String getProduction() {
+        return production;
+    }
+
+    public void setProduction(String production) {
+        this.production = production;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Movie movie = (Movie) o;
+        return Objects.equals(id, movie.id) &&
+            Objects.equals(title, movie.title) &&
+            Objects.equals(imdbID, movie.imdbID) &&
+            Objects.equals(year, movie.year) &&
+            Objects.equals(rated, movie.rated) &&
+            Objects.equals(released, movie.released) &&
+            Objects.equals(runtime, movie.runtime) &&
+            Objects.equals(genre, movie.genre) &&
+            Objects.equals(director, movie.director) &&
+            Objects.equals(writer, movie.writer) &&
+            Objects.equals(actors, movie.actors) &&
+            Objects.equals(plot, movie.plot) &&
+            Objects.equals(language, movie.language) &&
+            Objects.equals(country, movie.country) &&
+            Objects.equals(awards, movie.awards) &&
+            Objects.equals(poster, movie.poster) &&
+            Objects.equals(ratings, movie.ratings) &&
+            Objects.equals(type, movie.type) &&
+            Objects.equals(dvd, movie.dvd) &&
+            Objects.equals(boxOffice, movie.boxOffice) &&
+            Objects.equals(production, movie.production) &&
+            Objects.equals(website, movie.website);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects
+            .hash(id, title, imdbID, year, rated, released, runtime, genre, director, writer, actors, plot, language, country, awards, poster, ratings, type,
+                dvd,
+                boxOffice, production, website);
     }
 }

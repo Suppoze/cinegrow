@@ -11,6 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class OmdbClient {
 
+    // TODO: consider moving to constructor
     @Value("${omdb.url}")
     private String omdbUrl;
 

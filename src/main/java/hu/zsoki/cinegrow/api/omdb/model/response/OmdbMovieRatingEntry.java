@@ -6,7 +6,7 @@ import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-class OmdbMovieRatingEntry {
+public class OmdbMovieRatingEntry {
 
     @JsonProperty("Source")
     private String source;

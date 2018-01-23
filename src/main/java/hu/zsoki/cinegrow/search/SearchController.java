@@ -14,7 +14,7 @@ public class SearchController {
     public SearchController(SearchService searchService) {
         this.searchService = searchService;
     }
-
+    
     @PostMapping("search")
     public ResponseEntity<?> search(@RequestBody SearchRequest searchRequest) {
         return ResponseEntity.ok(searchService.search(searchRequest));

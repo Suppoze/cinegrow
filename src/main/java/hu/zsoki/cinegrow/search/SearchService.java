@@ -22,6 +22,7 @@ public class SearchService {
         this.omdbClient = omdbClient;
     }
 
+    // TODO: validation with aspect?
     SearchResponse search(final SearchRequest searchRequest) {
         final OmdbRequest omdbRequest = new OmdbSearchRequest(searchRequest);
         final OmdbSearchResponse omdbSearchResponse = omdbClient.executeOmdbRequest(omdbRequest, OmdbSearchResponse.class);

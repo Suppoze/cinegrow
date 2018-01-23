@@ -29,6 +29,7 @@ public class OmdbSearchRequest implements OmdbRequest {
     private Integer apiVersion = 1;
 
     public OmdbSearchRequest(SearchRequest searchRequest) {
+        // TODO null check
         title = searchRequest.getTitle();
     }
 
