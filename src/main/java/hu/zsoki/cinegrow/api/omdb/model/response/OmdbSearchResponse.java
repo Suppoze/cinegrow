@@ -26,7 +26,7 @@ public class OmdbSearchResponse implements OmdbResponse {
 
     @Override
     public boolean hasError() {
-        return !Boolean.getBoolean(response);
+        return !Boolean.parseBoolean(response);
     }
 
     @Override

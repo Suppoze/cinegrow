@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-class OmdbSearchResultEntry {
+public class OmdbSearchResultEntry {
 
     @JsonProperty("Title")
     private String title;
