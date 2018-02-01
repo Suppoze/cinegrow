@@ -48,3 +48,4 @@ nbdist/
 .nb-gradle/
 /gradle/wrapper/gradle-wrapper.jar
 /out/
+/mongo/data/

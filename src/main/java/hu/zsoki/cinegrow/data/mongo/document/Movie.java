@@ -25,7 +25,7 @@ public class Movie {
     @Id
     private ObjectId id;
 
-    @TextIndexed
+    @Indexed
     private String title;
 
     @Indexed
