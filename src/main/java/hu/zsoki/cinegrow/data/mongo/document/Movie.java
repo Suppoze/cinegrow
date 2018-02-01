@@ -7,6 +7,7 @@ import hu.zsoki.cinegrow.data.mongo.exception.MongoDocumentMappingException;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class Movie {
     @Id
     private ObjectId id;
 
-    @Indexed
+    @TextIndexed
     private String title;
 
     @Indexed

@@ -1,6 +1,7 @@
-package hu.zsoki.cinegrow.search;
+package hu.zsoki.cinegrow.search.controller;
 
 import hu.zsoki.cinegrow.search.model.request.SearchRequest;
+import hu.zsoki.cinegrow.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class SearchController {
     public SearchController(SearchService searchService) {
         this.searchService = searchService;
     }
-    
+
     @PostMapping("search")
     public ResponseEntity<?> search(@RequestBody SearchRequest searchRequest) {
         return ResponseEntity.ok(searchService.search(searchRequest));
