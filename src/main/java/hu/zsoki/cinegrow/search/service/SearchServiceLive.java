@@ -32,6 +32,7 @@ public class SearchServiceLive implements SearchService {
     }
 
     // TODO: validation with aspect?
+    // Legyen egy ami csak online, és legyen egy, ami először offline, majd online
     @Override
     public SearchResponse search(final SearchRequest searchRequest) {
         final OmdbRequest omdbRequest = new OmdbSearchRequest(searchRequest);
@@ -40,7 +41,9 @@ public class SearchServiceLive implements SearchService {
         final List<Movie> movies = omdbSearchResponse.getSearchResults().stream()
                 .map(Movie::new)
                 .collect(Collectors.toList());
-        movieRepository.insert(movies);
+        // Új thread
+        // Aszinkron lekérdezés minden egyes movie-ra, majd aztán saveAll
+        movieRepository.saveAll(movies);
 
         return new SearchResponse(omdbSearchResponse);
     }
@@ -55,7 +58,7 @@ public class SearchServiceLive implements SearchService {
         final OmdbRequest omdbRequest = OmdbTitleOrIdRequest.builder.buildWithTitle(title);
         final OmdbMovieResponse omdbMovieResponse = omdbClient.executeOmdbRequest(omdbRequest, OmdbMovieResponse.class);
 
-        movieRepository.insert(new Movie(omdbMovieResponse));
+        movieRepository.save(new Movie(omdbMovieResponse));
 
         return new MovieResponse(omdbMovieResponse);
     }
@@ -70,7 +73,7 @@ public class SearchServiceLive implements SearchService {
         final OmdbRequest omdbRequest = OmdbTitleOrIdRequest.builder.buildWithId(id);
         final OmdbMovieResponse omdbMovieResponse = omdbClient.executeOmdbRequest(omdbRequest, OmdbMovieResponse.class);
 
-        movieRepository.insert(new Movie(omdbMovieResponse));
+        movieRepository.save(new Movie(omdbMovieResponse));
 
         return new MovieResponse(omdbMovieResponse);
     }

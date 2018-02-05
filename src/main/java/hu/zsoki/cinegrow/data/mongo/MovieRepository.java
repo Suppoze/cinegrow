@@ -12,4 +12,6 @@ public interface MovieRepository extends MongoRepository<Movie, ObjectId> {
 
     Movie findMovieByImdbID(String imdbId);
 
+    // TODO use
+    Movie findMovieByTitleContains(String title);
 }

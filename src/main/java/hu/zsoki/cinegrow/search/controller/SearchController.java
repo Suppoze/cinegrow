@@ -1,8 +1,11 @@
 package hu.zsoki.cinegrow.search.controller;
 
 import hu.zsoki.cinegrow.search.model.request.SearchRequest;
+import hu.zsoki.cinegrow.search.model.response.MovieResponse;
+import hu.zsoki.cinegrow.search.model.response.SearchResponse;
 import hu.zsoki.cinegrow.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,18 +20,20 @@ public class SearchController {
     }
 
     @PostMapping("search")
-    public ResponseEntity<?> search(@RequestBody SearchRequest searchRequest) {
+    public ResponseEntity<SearchResponse> search(@RequestBody SearchRequest searchRequest) {
         return ResponseEntity.ok(searchService.search(searchRequest));
     }
 
-    @GetMapping("title/{title}")
-    public ResponseEntity<?> getByTitle(@PathVariable("title") String title) {
-        return ResponseEntity.ok(searchService.getByTitle(title));
-    }
-
-    @GetMapping("id/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") String id) {
-        return ResponseEntity.ok(searchService.getById(id));
+    @GetMapping("view")
+    public ResponseEntity<?> view(@RequestParam(required = false) String id, @RequestParam(required = false) String title) {
+        // Optionallal megoldani
+        if (id != null) {
+            return ResponseEntity.ok(searchService.getById(id));
+        }
+        if (title != null) {
+            return ResponseEntity.ok(searchService.getByTitle(title));
+        }
+        return ResponseEntity.badRequest().body(HttpStatus.BAD_REQUEST.getReasonPhrase());
     }
 
 }
