@@ -1,6 +1,8 @@
 package hu.zsoki.cinegrow.common;
 
-import hu.zsoki.cinegrow.api.omdb.OmdbClientException;
+import hu.zsoki.cinegrow.api.omdb.exception.OmdbClientException;
+import hu.zsoki.cinegrow.api.omdb.exception.OmdbRequestException;
+import hu.zsoki.cinegrow.api.omdb.model.request.OmdbRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -14,9 +16,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private static final String OMDB_CLIENT_EXCEPTION_TEMPLATE = "Error during OMDb API request: %s (%s)";
+    private static final String OMDB_REQUEST_EXCEPTION_TEMPLATE = "Error with OMDb API request: %s (%s)";
 
     @ExceptionHandler(value = OmdbClientException.class)
-    ResponseEntity<String> handleOmdbException(OmdbClientException ex) {
+    ResponseEntity<String> handleOmdbClientException(OmdbClientException ex) {
         LOGGER.error(ex.getMessage(), ex);
         return ResponseEntity
                 .status(HttpStatus.BAD_GATEWAY)

@@ -11,6 +11,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class OmdbClient {
 
+    private static final String API_KEY_FIELD = "apikey";
+
     @Value("${omdb.url}")
     private String omdbUrl;
 
@@ -38,7 +40,7 @@ public class OmdbClient {
     private UriComponentsBuilder getDefaultUriComponentsBuilder() {
         return UriComponentsBuilder
                 .fromUriString(omdbUrl)
-                .queryParam("apikey", apiKey);
+                .queryParam(API_KEY_FIELD, apiKey);
     }
 
 }
