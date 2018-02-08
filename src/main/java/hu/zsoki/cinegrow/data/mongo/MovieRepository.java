@@ -5,13 +5,12 @@ import org.bson.types.ObjectId;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 @Profile("live")
 public interface MovieRepository extends MongoRepository<Movie, ObjectId> {
 
-    Movie findMovieByTitle(String title);
+    List<Movie> findMoviesByTitleContains(String title);
 
     Movie findMovieByImdbID(String imdbId);
-
-    // TODO use
-    Movie findMovieByTitleContains(String title);
 }

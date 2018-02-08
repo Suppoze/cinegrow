@@ -17,4 +17,8 @@ public class SearchResponse {
                 .collect(Collectors.toList());
     }
 
+    public SearchResponse(List<SearchResultEntry> movies) {
+        this.searchResults = movies;
+    }
+
 }

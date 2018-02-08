@@ -8,8 +8,6 @@ public interface SearchService {
 
     SearchResponse search(SearchRequest searchRequest);
 
-    MovieResponse getByTitle(String title);
-
     MovieResponse getById(String id);
 
 }
