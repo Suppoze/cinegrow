@@ -4,18 +4,13 @@ import hu.zsoki.cinegrow.api.omdb.model.response.OmdbMovieRatingEntry;
 import hu.zsoki.cinegrow.api.omdb.model.response.OmdbMovieResponse;
 import hu.zsoki.cinegrow.api.omdb.model.response.OmdbSearchResultEntry;
 import hu.zsoki.cinegrow.data.mongo.exception.MongoDocumentMappingException;
-import java.util.List;
-import java.util.Objects;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-/*-Minta adat DB-ben, lekerdezessel egyutt
- * -OMDB-s endpointon keresni, dbvel és db nélkül (opcionális paraméterként dryrun, vagy külön
- * controller.
- * -OMDB-se endpointon keresés, DB-be menteni, és visszakérni lekérdezéssel
- * -Keresés csak a lokális DB-ben, ne legyen OMDB hívás találat esetén*/
+import java.util.List;
+import java.util.Objects;
 
 @Document(collection = "movies")
 public class Movie {
@@ -54,10 +49,10 @@ public class Movie {
 
     public Movie(OmdbMovieResponse movieResponse) {
         if (movieResponse == null
-            || movieResponse.getTitle() == null
-            || movieResponse.getYear() == null
-            || movieResponse.getImdbID() == null
-            || movieResponse.getType() == null) {
+                || movieResponse.getTitle() == null
+                || movieResponse.getYear() == null
+                || movieResponse.getImdbID() == null
+                || movieResponse.getType() == null) {
             throw new MongoDocumentMappingException("Error while mapping OMDb movie response to MongoDB document");
         }
 
@@ -86,10 +81,10 @@ public class Movie {
 
     public Movie(OmdbSearchResultEntry searchResultEntry) {
         if (searchResultEntry == null
-            || searchResultEntry.getTitle() == null
-            || searchResultEntry.getYear() == null
-            || searchResultEntry.getImdbID() == null
-            || searchResultEntry.getType() == null) {
+                || searchResultEntry.getTitle() == null
+                || searchResultEntry.getYear() == null
+                || searchResultEntry.getImdbID() == null
+                || searchResultEntry.getType() == null) {
             throw new MongoDocumentMappingException("Error while mapping OMDb search response to MongoDB document");
         }
 
@@ -286,35 +281,35 @@ public class Movie {
         }
         Movie movie = (Movie) o;
         return Objects.equals(id, movie.id) &&
-            Objects.equals(title, movie.title) &&
-            Objects.equals(imdbID, movie.imdbID) &&
-            Objects.equals(year, movie.year) &&
-            Objects.equals(rated, movie.rated) &&
-            Objects.equals(released, movie.released) &&
-            Objects.equals(runtime, movie.runtime) &&
-            Objects.equals(genre, movie.genre) &&
-            Objects.equals(director, movie.director) &&
-            Objects.equals(writer, movie.writer) &&
-            Objects.equals(actors, movie.actors) &&
-            Objects.equals(plot, movie.plot) &&
-            Objects.equals(language, movie.language) &&
-            Objects.equals(country, movie.country) &&
-            Objects.equals(awards, movie.awards) &&
-            Objects.equals(poster, movie.poster) &&
-            Objects.equals(ratings, movie.ratings) &&
-            Objects.equals(type, movie.type) &&
-            Objects.equals(dvd, movie.dvd) &&
-            Objects.equals(boxOffice, movie.boxOffice) &&
-            Objects.equals(production, movie.production) &&
-            Objects.equals(website, movie.website);
+                Objects.equals(title, movie.title) &&
+                Objects.equals(imdbID, movie.imdbID) &&
+                Objects.equals(year, movie.year) &&
+                Objects.equals(rated, movie.rated) &&
+                Objects.equals(released, movie.released) &&
+                Objects.equals(runtime, movie.runtime) &&
+                Objects.equals(genre, movie.genre) &&
+                Objects.equals(director, movie.director) &&
+                Objects.equals(writer, movie.writer) &&
+                Objects.equals(actors, movie.actors) &&
+                Objects.equals(plot, movie.plot) &&
+                Objects.equals(language, movie.language) &&
+                Objects.equals(country, movie.country) &&
+                Objects.equals(awards, movie.awards) &&
+                Objects.equals(poster, movie.poster) &&
+                Objects.equals(ratings, movie.ratings) &&
+                Objects.equals(type, movie.type) &&
+                Objects.equals(dvd, movie.dvd) &&
+                Objects.equals(boxOffice, movie.boxOffice) &&
+                Objects.equals(production, movie.production) &&
+                Objects.equals(website, movie.website);
     }
 
     @Override
     public int hashCode() {
 
         return Objects
-            .hash(id, title, imdbID, year, rated, released, runtime, genre, director, writer, actors, plot, language, country, awards, poster, ratings, type,
-                dvd,
-                boxOffice, production, website);
+                .hash(id, title, imdbID, year, rated, released, runtime, genre, director, writer, actors, plot, language, country, awards, poster, ratings, type,
+                        dvd,
+                        boxOffice, production, website);
     }
 }

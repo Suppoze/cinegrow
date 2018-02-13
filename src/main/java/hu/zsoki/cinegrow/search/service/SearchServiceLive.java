@@ -8,6 +8,7 @@ import hu.zsoki.cinegrow.api.omdb.model.response.OmdbMovieResponse;
 import hu.zsoki.cinegrow.api.omdb.model.response.OmdbSearchResponse;
 import hu.zsoki.cinegrow.data.mongo.MovieRepository;
 import hu.zsoki.cinegrow.data.mongo.document.Movie;
+import hu.zsoki.cinegrow.search.exception.SearchServiceAsyncOMBbCallException;
 import hu.zsoki.cinegrow.search.model.request.SearchRequest;
 import hu.zsoki.cinegrow.search.model.response.MovieResponse;
 import hu.zsoki.cinegrow.search.model.response.SearchResponse;
@@ -17,9 +18,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 @Profile("live")
@@ -34,8 +33,7 @@ public class SearchServiceLive implements SearchService {
         this.omdbClient = omdbClient;
         this.movieRepository = movieRepository;
     }
-
-    // TODO: validation with aspect?
+    
     @Override
     public SearchResponse search(SearchRequest searchRequest) {
         if (searchRequest.isCacheEnabled()) {
@@ -65,14 +63,14 @@ public class SearchServiceLive implements SearchService {
                         .map(SearchResultEntry::new)
                         .collect(Collectors.toList());
 
-        // TODO: launch async OMDb search anyway.
+        final ExecutorService executor = Executors.newSingleThreadExecutor();
+        final Future<SearchResponse> searchResponseFuture = executor.submit(() -> searchApiOnly(searchRequest));
 
         if (!movies.isEmpty()) {
             return new SearchResponse(movies);
         }
 
-        // TODO: if no result, wait for the OMDb response.
-        return searchApiOnly(searchRequest);
+        return getSearchResponseFromFuture(searchResponseFuture);
     }
 
     private SearchResponse searchApiOnly(SearchRequest searchRequest) {
@@ -87,6 +85,17 @@ public class SearchServiceLive implements SearchService {
         movieRepository.saveAll(movies);
 
         return new SearchResponse(omdbSearchResponse);
+    }
+
+    private SearchResponse getSearchResponseFromFuture(Future<SearchResponse> searchResponseFuture) {
+        final SearchResponse searchResponse;
+        try {
+            searchResponse = searchResponseFuture.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            throw new SearchServiceAsyncOMBbCallException("Exception during concurrent OMDb API call", e);
+        }
+        return searchResponse;
     }
 
     private void launchMovieDetailsBatchRequest(List<Movie> movies) {
