@@ -4,7 +4,6 @@ import hu.zsoki.cinegrow.api.omdb.model.response.OmdbMovieRatingEntry;
 import hu.zsoki.cinegrow.api.omdb.model.response.OmdbMovieResponse;
 import hu.zsoki.cinegrow.api.omdb.model.response.OmdbSearchResultEntry;
 import hu.zsoki.cinegrow.data.mongo.exception.MongoDocumentMappingException;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,13 +15,10 @@ import java.util.Objects;
 public class Movie {
 
     @Id
-    private ObjectId id;
+    private String imdbID;
 
     @Indexed
     private String title;
-
-    @Indexed
-    private String imdbID;
 
     private String year;
     private String rated;
@@ -95,12 +91,12 @@ public class Movie {
         this.poster = searchResultEntry.getPoster();
     }
 
-    public ObjectId getId() {
-        return id;
+    public String getImdbID() {
+        return imdbID;
     }
 
-    public void setId(ObjectId id) {
-        this.id = id;
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
     }
 
     public String getTitle() {
@@ -109,14 +105,6 @@ public class Movie {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getImdbID() {
-        return imdbID;
-    }
-
-    public void setImdbID(String imdbID) {
-        this.imdbID = imdbID;
     }
 
     public String getYear() {
@@ -280,8 +268,7 @@ public class Movie {
             return false;
         }
         Movie movie = (Movie) o;
-        return Objects.equals(id, movie.id) &&
-                Objects.equals(title, movie.title) &&
+        return Objects.equals(title, movie.title) &&
                 Objects.equals(imdbID, movie.imdbID) &&
                 Objects.equals(year, movie.year) &&
                 Objects.equals(rated, movie.rated) &&
@@ -308,7 +295,7 @@ public class Movie {
     public int hashCode() {
 
         return Objects
-                .hash(id, title, imdbID, year, rated, released, runtime, genre, director, writer, actors, plot, language, country, awards, poster, ratings, type,
+                .hash(title, imdbID, year, rated, released, runtime, genre, director, writer, actors, plot, language, country, awards, poster, ratings, type,
                         dvd,
                         boxOffice, production, website);
     }

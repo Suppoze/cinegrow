@@ -33,7 +33,7 @@ public class SearchServiceLive implements SearchService {
         this.omdbClient = omdbClient;
         this.movieRepository = movieRepository;
     }
-    
+
     @Override
     public SearchResponse search(SearchRequest searchRequest) {
         if (searchRequest.isCacheEnabled()) {
@@ -82,7 +82,9 @@ public class SearchServiceLive implements SearchService {
                 .collect(Collectors.toList());
 
         launchMovieDetailsBatchRequest(movies);
-        movieRepository.saveAll(movies);
+
+//        TODO: save search data while concurrently getting details
+//        movieRepository.saveAll(movies);
 
         return new SearchResponse(omdbSearchResponse);
     }
