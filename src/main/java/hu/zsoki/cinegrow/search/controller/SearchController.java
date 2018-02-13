@@ -1,6 +1,8 @@
 package hu.zsoki.cinegrow.search.controller;
 
 import hu.zsoki.cinegrow.search.model.request.SearchRequest;
+import hu.zsoki.cinegrow.search.model.response.MovieResponse;
+import hu.zsoki.cinegrow.search.model.response.SearchResponse;
 import hu.zsoki.cinegrow.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +19,12 @@ public class SearchController {
     }
 
     @PostMapping("search")
-    public ResponseEntity<?> search(@RequestBody SearchRequest searchRequest) {
+    public ResponseEntity<SearchResponse> search(@RequestBody SearchRequest searchRequest) {
         return ResponseEntity.ok(searchService.search(searchRequest));
     }
 
-    @GetMapping("title/{title}")
-    public ResponseEntity<?> getByTitle(@PathVariable("title") String title) {
-        return ResponseEntity.ok(searchService.getByTitle(title));
-    }
-
-    @GetMapping("id/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") String id) {
+    @GetMapping("view")
+    public ResponseEntity<MovieResponse> view(@RequestParam String id) {
         return ResponseEntity.ok(searchService.getById(id));
     }
 

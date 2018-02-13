@@ -1,5 +1,6 @@
 package hu.zsoki.cinegrow.api.omdb.model.request;
 
+import hu.zsoki.cinegrow.api.omdb.exception.OmdbRequestException;
 import hu.zsoki.cinegrow.api.omdb.model.request.enums.DataType;
 import hu.zsoki.cinegrow.api.omdb.model.request.enums.SearchType;
 import hu.zsoki.cinegrow.search.model.request.SearchRequest;
@@ -29,7 +30,9 @@ public class OmdbSearchRequest implements OmdbRequest {
     private Integer apiVersion = 1;
 
     public OmdbSearchRequest(SearchRequest searchRequest) {
-        // TODO null check
+        if (searchRequest == null || searchRequest.getTitle() == null) {
+            throw new OmdbRequestException();
+        }
         title = searchRequest.getTitle();
     }
 

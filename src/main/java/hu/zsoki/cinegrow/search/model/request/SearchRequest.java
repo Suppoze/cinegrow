@@ -6,5 +6,6 @@ import lombok.Data;
 public class SearchRequest {
 
     private String title;
+    private boolean cacheEnabled = true;
 
 }

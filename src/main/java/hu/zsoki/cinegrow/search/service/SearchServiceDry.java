@@ -32,13 +32,6 @@ public class SearchServiceDry implements SearchService {
     }
 
     @Override
-    public MovieResponse getByTitle(String title) {
-        final OmdbRequest omdbRequest = OmdbTitleOrIdRequest.builder.buildWithTitle(title);
-        final OmdbMovieResponse omdbMovieResponse = omdbClient.executeOmdbRequest(omdbRequest, OmdbMovieResponse.class);
-        return new MovieResponse(omdbMovieResponse);
-    }
-
-    @Override
     public MovieResponse getById(String id) {
         final OmdbRequest omdbRequest = OmdbTitleOrIdRequest.builder.buildWithId(id);
         final OmdbMovieResponse omdbMovieResponse = omdbClient.executeOmdbRequest(omdbRequest, OmdbMovieResponse.class);

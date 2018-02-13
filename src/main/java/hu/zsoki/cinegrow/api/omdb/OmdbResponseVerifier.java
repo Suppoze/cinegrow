@@ -1,5 +1,6 @@
 package hu.zsoki.cinegrow.api.omdb;
 
+import hu.zsoki.cinegrow.api.omdb.exception.OmdbClientException;
 import hu.zsoki.cinegrow.api.omdb.model.response.OmdbResponse;
 import org.springframework.stereotype.Component;
 

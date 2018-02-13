@@ -1,5 +1,6 @@
 package hu.zsoki.cinegrow.api.omdb.model.request;
 
+import hu.zsoki.cinegrow.api.omdb.exception.OmdbRequestException;
 import hu.zsoki.cinegrow.api.omdb.model.request.enums.DataType;
 import hu.zsoki.cinegrow.api.omdb.model.request.enums.PlotLength;
 import hu.zsoki.cinegrow.api.omdb.model.request.enums.SearchType;
@@ -49,6 +50,9 @@ public class OmdbTitleOrIdRequest implements OmdbRequest {
     public static class Builder {
 
         public OmdbTitleOrIdRequest buildWithTitle(String title) {
+            if (title == null) {
+                throw new OmdbRequestException();
+            }
             OmdbTitleOrIdRequest newInstance = new OmdbTitleOrIdRequest();
             newInstance.setTitle(title);
             newInstance.setId(null);
@@ -56,6 +60,9 @@ public class OmdbTitleOrIdRequest implements OmdbRequest {
         }
 
         public OmdbTitleOrIdRequest buildWithId(String id) {
+            if (id == null) {
+                throw new OmdbRequestException();
+            }
             OmdbTitleOrIdRequest newInstance = new OmdbTitleOrIdRequest();
             newInstance.setId(id);
             newInstance.setTitle(null);
