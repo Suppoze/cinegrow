@@ -2,17 +2,18 @@ package hu.zsoki.cinegrow.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-@Configuration
+@EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String CLIENT_ROLE = "Client";
+    private static final String CLIENT_ROLE = "CLIENT";
 
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
     private final AccessDeniedHandler accessDeniedHandler;
@@ -44,12 +45,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/view", "/search").hasRole(CLIENT_ROLE)
                 .and()
+                .httpBasic()
+                .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
+                .passwordEncoder(NoOpPasswordEncoder.getInstance()) // TODO hash
                 .withUser(clientUsername).password(clientPassword).roles(CLIENT_ROLE);
     }
 }
